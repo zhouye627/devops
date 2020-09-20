@@ -25,8 +25,8 @@ pipeline {
         stage("npmbuild"){
             steps{
                 script{
-                    nodejsHome = tool "NODE_JS"
-                    sh "${nodejsHome}/bin/npm ${choice}"
+                    npmHome = tool "NPM"
+                    sh "${npmHome}/bin/npm ${choice}"
                 }
             }
         }
