@@ -2,9 +2,12 @@
 @Library('jenkinslib') _
 
 def build = new org.devops.build()
+def deploy = new org.devops.deploy()
 
 String buildType = "${env.buildType}"
 String buildShell = "${env.buildShell}"
+String func = "${env.func}"
+String hosts = "${env.hosts}"
 pipeline {
     agent {node {label "master"}}
     
@@ -13,6 +16,14 @@ pipeline {
             steps{
                 script{
                     build.Build(buildType,buildShell)
+                }
+            }
+        }
+        
+        stage("deploy"){
+            steps{
+                script{
+                    deploy.ansibleDeploy(hosts,func)
                 }
             }
         }
