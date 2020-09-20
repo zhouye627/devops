@@ -12,6 +12,10 @@ String buildShell = "${env.buildShell}"
 //String hosts = "${env.hosts}"
 pipeline {
     agent {node {label "master"}}
+        
+    environment{
+      PATH="/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/data/jdk1.8.0_261/bin"
+    }
     
     stages{
         stage("checkout"){
