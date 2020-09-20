@@ -1,3 +1,7 @@
+#!groovy
+
+String choice = "env.${choice}"
+
 pipeline {
     agent {node {label "master"}}
     
@@ -6,7 +10,14 @@ pipeline {
             steps{
                 script{
                     mvnHome = tool "M2"
-                    sh "${mvnHome}/bin/mvn -v"
+                    sh "${mvnHome}/bin/mvn ${choice}"
+                }
+            }
+            
+            steps{
+                script{
+                    gradleHome = tool "GRADLE"
+                    sh "${gradleHome}/bin/gradle ${choice}"
                 }
             }
         }
