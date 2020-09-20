@@ -1,5 +1,5 @@
 #!groovy
-@Library('jenkinslib') _
+@Library('jenkinslib@master') _
 
 def build = new org.devops.build()
 def deploy = new org.devops.deploy()
@@ -31,6 +31,7 @@ pipeline {
                 }
             }
         }
+    
         
         /*stage("deploy"){
             steps{
@@ -39,7 +40,7 @@ pipeline {
                 }
             }
         }
-        /*stage("gradlebuild"){
+        stage("gradlebuild"){
             steps{
                 script{
                     gradleHome = tool "GRADLE"
