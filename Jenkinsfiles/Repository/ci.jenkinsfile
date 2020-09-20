@@ -26,7 +26,7 @@ pipeline {
             steps{
                 script{
                     npmHome = tool "NPM"
-                    sh "${npmHome}/bin/npm ${choice}"
+                    sh "export NODEJS_HOME=/data/devops/node-v12.18.4-linux-x64 && export PATH=\$PATH:\$NODEJS_HOME/bin && ${npmHome}/bin/npm ${choice}"
                 }
             }
         }
