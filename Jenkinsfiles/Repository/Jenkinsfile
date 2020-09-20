@@ -1,20 +1,22 @@
 #!groovy
+@Library('jenkinslib') _
 
-String choice = "${env.choice}"
+def build = new org.devops.build()
 
+String buildType = "${env.buildType}"
+String buildShell = "${env.buildShell}"
 pipeline {
     agent {node {label "master"}}
     
     stages{
-        stage("mvnbuild"){
+        stage("build"){
             steps{
                 script{
-                    mvnHome = tool "M2"
-                    sh "${mvnHome}/bin/mvn ${choice}"
+                    build.Build(buildType,buildShell)
                 }
             }
         }
-        stage("gradlebuild"){
+        /*stage("gradlebuild"){
             steps{
                 script{
                     gradleHome = tool "GRADLE"
@@ -29,6 +31,6 @@ pipeline {
                     sh "export NODEJS_HOME=/data/devops/node-v12.18.4-linux-x64 && export PATH=\$PATH:\$NODEJS_HOME/bin && ${npmHome}/bin/npm ${choice}"
                 }
             }
-        }
+        }*/
     }
 }
