@@ -4,12 +4,24 @@
 def build = new org.devops.build()
 def deploy = new org.devops.deploy()
 
+String srcUrl = "${env.srcUrl}"
+String branchName = "${env.branchName}"
 String buildType = "${env.buildType}"
 String buildShell = "${env.buildShell}"
-String func = "${env.func}"
-String hosts = "${env.hosts}"
+//String func = "${env.func}"
+//String hosts = "${env.hosts}"
 pipeline {
     agent {node {label "master"}}
+    
+    stages{
+        stage("checkout"){
+            steps{
+                script{
+                    checkout([$class: 'GitSCM', branches: [[name: "${branchName}"]], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'jenkinsforgithub', url: "${srcUrl}"]]])
+                }
+            }
+        }
+    }
     
     stages{
         stage("build"){
@@ -20,7 +32,7 @@ pipeline {
             }
         }
         
-        stage("deploy"){
+        /*stage("deploy"){
             steps{
                 script{
                     deploy.ansibleDeploy(hosts,func)
