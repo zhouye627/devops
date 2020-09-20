@@ -22,11 +22,11 @@ pipeline {
                 }
             }
         }
-        stage("nodejsbuild"){
+        stage("npmbuild"){
             steps{
                 script{
                     nodejsHome = tool "NODE_JS"
-                    sh "${nodejsHome}/bin/node ${choice}"
+                    sh "${nodejsHome}/bin/npm ${choice}"
                 }
             }
         }
